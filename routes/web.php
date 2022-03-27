@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactForm;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ Route::get(md5('this is for name route practice'), function () {
 Route::get('/fruits', function () {
     return view('project.fruits');
 })->middleware(['Fruits'])->name('fruits');
+
+//Controller practice-Form Show
+Route::get('/form', [ContactForm::class, 'show'])->name('form');
+//Controller practice-Form Submit
+Route::post('/form', [ContactForm::class, 'submit'])->name('form.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
