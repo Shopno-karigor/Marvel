@@ -17,13 +17,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/vehicle', function () {
-    return view('vehicle');
+Route::view('/vehicle', 'project.vehicle');
+Route::view('/project', 'project.project');
+
+Route::get('/project/{id}', function ($id) {
+    return view('project.project');
 });
 
-Route::get('/project', function () {
-    return view('project');
-});
+Route::get(md5('this is for name route practice'), function () {
+    return view('project.nameroute');
+})->name('nameroute.route');
+
+//Named Route Middleware
+Route::get('/fruits', function () {
+    return view('project.fruits');
+})->middleware(['Fruits'])->name('fruits');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

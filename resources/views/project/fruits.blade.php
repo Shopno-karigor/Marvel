@@ -1,0 +1,1 @@
+<h1>Yes, that is right. I love {{ $_GET['fruits'] }}</h1>

@@ -45,11 +45,14 @@
                     </svg>
                 </div>
 
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <h1>Menu</h1>
+                <div class="mt-8 overflow-hidden sm:rounded-lg">
+                    <h1>Marvel Practice Menu</h1>
                     <ul>
                         <li><a href="{{ url('vehicle') }}">Vehicle</a></li>
                         <li><a href="{{ url('project') }}">Project</a></li>
+                        <li><a href="{{ url('project/20') }}">Project ID</a></li>
+                        <li><a href="{{ route('nameroute.route') }}">Name Route</a></li>
+                        <li><a href="{{ route('fruits') }}">Middleware Practice</a></li>
                     </ul>
                 </div>
 
