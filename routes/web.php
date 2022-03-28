@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactForm;
+use App\Http\Controllers\ErrorHandler;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,10 @@ Route::get('/fruits', function () {
 Route::get('/form', [ContactForm::class, 'show'])->name('form');
 //Controller practice-Form Submit
 Route::post('/form', [ContactForm::class, 'submit'])->name('form.store');
+
+//Error handler
+Route::get('/Oops!-404', [ErrorHandler::class, 'Error404'])->name('Error.404');
+Route::get('/Oops!-500', [ErrorHandler::class, 'Error500'])->name('Error.500');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

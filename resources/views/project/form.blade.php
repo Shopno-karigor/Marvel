@@ -103,7 +103,7 @@
                             <textarea class="form-control" name="message" value="{{ old('message') }}" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-lg btn-success" value="Submit">
+                            <input type="submit" class="btn btn-md btn-success" value="Submit">
                         </div>
                     </form>
                     <p><a href="{{ url('/') }}">Back to home</a></p>
