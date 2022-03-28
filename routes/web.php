@@ -39,6 +39,9 @@ Route::get('/fruits', function () {
 Route::get('/form', [ContactForm::class, 'show'])->name('form');
 //Controller practice-Form Submit
 Route::post('/form', [ContactForm::class, 'submit'])->name('form.store');
+//Form submission log view
+Route::get('/form_log', [ContactForm::class, 'form_log'])->name('form.log');
+
 
 //Error handler
 Route::get('/Oops!-404', [ErrorHandler::class, 'Error404'])->name('Error.404');

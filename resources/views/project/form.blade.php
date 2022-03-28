@@ -107,6 +107,7 @@
                         </div>
                     </form>
                     <p><a href="{{ url('/') }}">Back to home</a></p>
+                    <p><a href="{{ route('form.log') }}">Submission Log</a></p>
                 </div>
 
             </div>

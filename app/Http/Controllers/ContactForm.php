@@ -18,6 +18,23 @@ class ContactForm extends Controller
             'option' => 'required',
             'region' => 'required',
         ]);
+
+        \Log::channel('contact')->info('Form submission count +1');
+
+        
         return redirect()->back()->with('success', 'Form submission successful');
     }
+
+    public function form_log(){
+        $logfile=file(storage_path().'/logs/contact.log');
+        $count = 0;
+        $collection = [];
+        foreach($logfile as $linenumber => $line){
+            $count=$count+1;
+            $collection[]=array('line' => $linenumber, 'content' => htmlspecialchars($line));
+        }
+        //return $count;
+        dd($collection);
+    }
+
 }
