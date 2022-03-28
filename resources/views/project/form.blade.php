@@ -47,29 +47,52 @@
 
                 <div class="mt-8 overflow-hidden sm:rounded-lg">
                     <h1>Marvel Practice Form</h1>
+                    @if(Session('error'))
+                        <div class="alert alert-danger">
+                            {{ Session('error') }}
+                        </div>
+                    @endif
+                    @if(Session('success'))
+                        <div class="alert alert-success">
+                            {{ Session('success') }}
+                        </div>
+                    @endif
                     <form action="{{ route('form.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Name</label>
-                            <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="Your Name">
+                            @error('name')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Your Name">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Email address</label>
-                            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="name@example.com">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" name="option" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            @error('option')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            <select class="form-control" name="option" value="{{ old('option') }}">                            
+                            <option value="">Select</option>
+                            <option value="1" >1</option>
+                            <option value="2" >2</option>
+                            <option value="3" >3</option>
+                            <option value="4" >4</option>
+                            <option value="5" >5</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect2">Example multiple select</label>
-                            <select multiple class="form-control" name="region" id="exampleFormControlSelect2">
+                            @error('region')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            <select multiple class="form-control @error('region') is-invalid @enderror" name="region" value="{{ old('region') }}">
                             <option>Shanghai</option>
                             <option>Xian</option>
                             <option>Chengdu</option>
@@ -77,7 +100,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea class="form-control" name="message" value="{{ old('message') }}" rows="3"></textarea>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-lg btn-success" value="Submit">

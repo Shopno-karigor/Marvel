@@ -12,6 +12,12 @@ class ContactForm extends Controller
     }
 
     public function submit(Request $request){
-        dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|max:80|email',
+            'option' => 'required',
+            'region' => 'required',
+        ]);
+        return redirect()->back()->with('success', 'Form submission successful');
     }
 }
