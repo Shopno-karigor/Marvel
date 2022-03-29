@@ -8,7 +8,7 @@ use DB;
 class ContactForm extends Controller
 {
     //
-    public function show(){
+    public function index(){
         return view('project.form');
     }
 
@@ -66,7 +66,18 @@ class ContactForm extends Controller
         dd($collection);
     }
 
+    public function show(){
+        $data=DB::table('form_submissions')->get();
+        return view('project.form_data', compact('data'));
+    }
+
+    public function update_show($id){
+        $data=DB::table('form_submissions')->where('id',$id)->get();
+        return view('project.form_update', compact('data'));
+    }
+
     public function secret_page(){
+
         return view('project.secret_page');
     }
 

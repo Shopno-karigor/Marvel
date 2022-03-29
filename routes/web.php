@@ -36,11 +36,15 @@ Route::get('/fruits', function () {
 })->middleware(['Fruits'])->name('fruits');
 
 //Controller practice-Form Show
-Route::get('/form', [ContactForm::class, 'show'])->name('form');
+Route::get('/form', [ContactForm::class, 'index'])->name('form');
 //Controller practice-Form Submit
 Route::post('/form', [ContactForm::class, 'submit'])->name('form.store');
 //Form submission log view
 Route::get('/form_log', [ContactForm::class, 'form_log'])->name('form.log');
+//Form submission Data view
+Route::get('/form_submission', [ContactForm::class, 'show'])->name('form.submission');
+//Form submission update view
+Route::get('/form_update/{id}', [ContactForm::class, 'update_show'])->name('form.update');
 
 //Error handler
 Route::get('/Oops!-404', [ErrorHandler::class, 'Error404'])->name('Error.404');

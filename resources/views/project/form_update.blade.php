@@ -47,6 +47,7 @@
 
                 <div class="mt-8 overflow-hidden sm:rounded-lg">
                     <h1>Marvel Practice Form</h1>
+                    {{ dd($data) }}
                     @if(Session('error'))
                         <div class="alert alert-danger">
                             {{ Session('error') }}

@@ -46,73 +46,36 @@
                 </div>
 
                 <div class="mt-8 overflow-hidden sm:rounded-lg">
-                    <h1>Marvel Practice Form</h1>
-                    @if(Session('error'))
-                        <div class="alert alert-danger">
-                            {{ Session('error') }}
-                        </div>
-                    @endif
-                    @if(Session('success'))
-                        <div class="alert alert-success">
-                            {{ Session('success') }}
-                        </div>
-                    @endif
-                    <form action="{{ route('form.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Name</label>
-                            @error('name')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Your Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Email address</label>
-                            @error('email')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                            <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="name@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            @error('option')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                            <select class="form-control" name="option" value="{{ old('option') }}">                            
-                            <option value="">Select</option>
-                            <option value="1" >1</option>
-                            <option value="2" >2</option>
-                            <option value="3" >3</option>
-                            <option value="4" >4</option>
-                            <option value="5" >5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect2">Example multiple select</label>
-                            @error('region')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                            <select multiple class="form-control @error('region') is-invalid @enderror" name="region" value="{{ old('region') }}">
-                            <option>Shanghai</option>
-                            <option>Xian</option>
-                            <option>Chengdu</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" name="message" value="{{ old('message') }}" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Image</label>
-                            @error('image')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                            <input type="file" name="image" class="form-control-file btn btn-md btn-info @error('image') is-invalid @enderror">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-md btn-success" value="Submit">
-                        </div>
-                    </form>
+                    <h1>Marvel Practice Form Data</h1>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Option</th>
+                            <th scope="col">Region</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data as $key=>$row)
+                            <tr>
+                                <th scope="row">{{++$key}}</th>
+                                <td>{{$row->name}}</td>
+                                <td>{{$row->email}}</td>
+                                <td>{{$row->option}}</td>
+                                <td>{{$row->region}}</td>
+                                <td>{{$row->message}}</td>
+                                <td><img src="{{ asset("images/$row->image") }}" alt="" class="img img-responsive"></td>
+                                <td><a href="{{ route('form.update',$row->id) }}" class="btn btn-sm btn-warning">Update</a></td>
+                              </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                    
                     <p><a href="{{ url('/') }}">Back to home</a></p>
                     <p><a href="{{ route('form.log') }}">Submission Log</a></p>
                     <p><a href="{{ route('form.submission') }}">Submission Data</a></p>
