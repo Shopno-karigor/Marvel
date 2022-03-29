@@ -42,12 +42,11 @@ Route::post('/form', [ContactForm::class, 'submit'])->name('form.store');
 //Form submission log view
 Route::get('/form_log', [ContactForm::class, 'form_log'])->name('form.log');
 
-
 //Error handler
 Route::get('/Oops!-404', [ErrorHandler::class, 'Error404'])->name('Error.404');
 Route::get('/Oops!-500', [ErrorHandler::class, 'Error500'])->name('Error.500');
 
-//Auth Breez Practice
+//Auth Breeze Practice
 Route::get('/secret_page', [ContactForm::class, 'secret_page'])->middleware(['auth'])->name('secret.page');
 
 Route::get('/dashboard', function () {

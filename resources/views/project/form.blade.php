@@ -57,7 +57,7 @@
                             {{ Session('success') }}
                         </div>
                     @endif
-                    <form action="{{ route('form.store') }}" method="POST">
+                    <form action="{{ route('form.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Name</label>
@@ -101,6 +101,13 @@
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Example textarea</label>
                             <textarea class="form-control" name="message" value="{{ old('message') }}" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Image</label>
+                            @error('image')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            <input type="file" name="image" class="form-control-file btn btn-md btn-info @error('image') is-invalid @enderror">
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-md btn-success" value="Submit">
