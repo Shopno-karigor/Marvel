@@ -47,6 +47,9 @@ Route::get('/form_log', [ContactForm::class, 'form_log'])->name('form.log');
 Route::get('/Oops!-404', [ErrorHandler::class, 'Error404'])->name('Error.404');
 Route::get('/Oops!-500', [ErrorHandler::class, 'Error500'])->name('Error.500');
 
+//Auth Breez Practice
+Route::get('/secret_page', [ContactForm::class, 'secret_page'])->middleware(['auth'])->name('secret.page');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

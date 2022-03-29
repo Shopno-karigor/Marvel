@@ -37,4 +37,8 @@ class ContactForm extends Controller
         dd($collection);
     }
 
+    public function secret_page(){
+        return view('project.secret_page');
+    }
+
 }
