@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 use Illuminate\Validation\Rule;
 use DB;
 
@@ -21,7 +22,6 @@ class ContactForm extends Controller
             'region' => 'required',
             'image' => 'required|image|mimes:png,jpg',
         ]);
-        //dd($request->all());
         $max=DB::table('form_submissions')->get();
         if(count($max)==0){
             $max_id=1;
@@ -68,7 +68,12 @@ class ContactForm extends Controller
     }
 
     public function show(){
-        $data=DB::table('form_submissions')->get();
+        //$data=DB::table('form_submissions')->get();
+        $data = Post::with( relation: 'form_submissions')
+        ->when( $request->has(key:'archive'), function($query){
+            $query->onlyTrashed();
+        })
+        ->get();
         return view('project.form_data', compact('data'));
     }
 
@@ -117,10 +122,25 @@ class ContactForm extends Controller
         $result=DB::table('form_submissions')->where('id', $id)->update($data);
         \Log::channel('contact')->info('Form update count +1');
         if ($result){
-            return redirect()->back()->with('success', 'Form submission successful');
+            return redirect()->back()->with('success', 'Form update successful');
         }else{
-            return redirect()->back()->with('error', 'Form submission failed');
+            return redirect()->back()->with('error', 'Form update failed');
         }
+    }
+
+    
+    public function delete($id){
+        $data=array(
+            'deleted_at' => date("Y-m-d")." ".date("h:i:s")
+        );
+        $result=DB::table('form_submissions')->where('id', $id)->update($data);
+        \Log::channel('contact')->info('Form deleted count -1');
+        if ($result){
+            return redirect()->back()->with('success', 'Data delete successful');
+        }else{
+            return redirect()->back()->with('error', 'Data delete failed');
+        }
+        
     }
 
     public function secret_page(){

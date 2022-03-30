@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('region', 255);
             $table->text('message')->nullable();
             $table->string('image')->nullable();
-            $table->datetime('created_at')->nullable();
-            $table->datetime('updated_at')->nullable();
-            $table->datetime('deleted_at')->nullable();
+            $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

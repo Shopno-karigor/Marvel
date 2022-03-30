@@ -47,6 +47,16 @@
 
                 <div class="mt-8 overflow-hidden sm:rounded-lg">
                     <h1>Marvel Practice Form Data</h1>
+                    @if(Session('error'))
+                        <div class="alert alert-danger">
+                            {{ Session('error') }}
+                        </div>
+                    @endif
+                    @if(Session('success'))
+                        <div class="alert alert-success">
+                            {{ Session('success') }}
+                        </div>
+                    @endif
                     <table class="table">
                         <thead>
                           <tr>
@@ -71,6 +81,7 @@
                                 <td>{{$row->message}}</td>
                                 <td><img src="{{ asset("images/$row->image") }}" alt="" height="100px"></td>
                                 <td><a href="{{ route('form.update',$row->id) }}" class="btn btn-sm btn-warning">Update</a></td>
+                                <td><a href="{{ route('form.delete',$row->id) }}" class="btn btn-sm btn-danger">Delete</a></td>
                               </tr>
                             @endforeach
                         </tbody>

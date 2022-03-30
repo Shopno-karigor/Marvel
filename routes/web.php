@@ -46,6 +46,7 @@ Route::get('/form_submission', [ContactForm::class, 'show'])->name('form.submiss
 //Form submission update action
 Route::get('/form_update/{id}', [ContactForm::class, 'update_show'])->name('form.update');
 Route::post('/form_update/{id}', [ContactForm::class, 'update'])->name('form.update.submit');
+Route::get('/form_delete/{id}', [ContactForm::class, 'delete'])->name('form.delete');
 
 //Error handler
 Route::get('/Oops!-404', [ErrorHandler::class, 'Error404'])->name('Error.404');
