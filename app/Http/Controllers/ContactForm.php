@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use DB;
 
 class ContactForm extends Controller
@@ -74,6 +75,52 @@ class ContactForm extends Controller
     public function update_show($id){
         $data=DB::table('form_submissions')->where('id',$id)->get();
         return view('project.form_update', compact('data'));
+    }
+
+    public function update(Request $request, $id){
+        $validated = $request->validate([
+            'name' => 'bail|required|max:255',
+            'email' => [
+                'bail',
+                'required',
+                'max:80',
+                'email:rfc,dns',
+                Rule::unique('form_submissions', 'email')->ignore($id)
+            ],
+            'option' => 'required',
+            'region' => 'required',
+            'image' => 'image|mimes:png,jpg',
+        ]);
+        // dd($request->all());
+        $max=DB::table('form_submissions')->where('id',$id)->get();
+        $max_id=$id;     
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename= date('YmdHi')."-".$max_id.$file->getClientOriginalName();
+            if($file-> move(public_path('Images'), $filename)){
+                $request['image']= $filename;
+            }else{
+                return redirect()->back()->with('error', 'Image upload failed');
+            }
+        }else{
+            $filename=$max[0]->image;
+        }
+        $data=array(
+            'name' => $request->name,
+            'email' => $request->email,
+            'option' => $request->option,
+            'region' => $request->region,
+            'message' => $request->message,
+            'image' => $filename,
+            'updated_at' => date("Y-m-d")." ".date("h:i:s")
+        );
+        $result=DB::table('form_submissions')->where('id', $id)->update($data);
+        \Log::channel('contact')->info('Form update count +1');
+        if ($result){
+            return redirect()->back()->with('success', 'Form submission successful');
+        }else{
+            return redirect()->back()->with('error', 'Form submission failed');
+        }
     }
 
     public function secret_page(){

@@ -47,7 +47,7 @@
 
                 <div class="mt-8 overflow-hidden sm:rounded-lg">
                     <h1>Marvel Practice Form</h1>
-                    {{ dd($data) }}
+                    {{-- {{ dd($data[0]->name) }} --}}
                     @if(Session('error'))
                         <div class="alert alert-danger">
                             {{ Session('error') }}
@@ -58,34 +58,34 @@
                             {{ Session('success') }}
                         </div>
                     @endif
-                    <form action="{{ route('form.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('form.update.submit', $data[0]->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Name</label>
                             @error('name')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Your Name">
+                            <input type="text" name="name" value="{{ $data[0]->name }}" class="form-control @error('name') is-invalid @enderror" placeholder="Your Name">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Email address</label>
                             @error('email')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="name@example.com">
+                            <input type="email" name="email" value="{{ $data[0]->email }}" class="form-control @error('email') is-invalid @enderror" placeholder="name@example.com">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Example select</label>
                             @error('option')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            <select class="form-control" name="option" value="{{ old('option') }}">                            
+                            <select class="form-control" name="option">                            
                             <option value="">Select</option>
-                            <option value="1" >1</option>
-                            <option value="2" >2</option>
-                            <option value="3" >3</option>
-                            <option value="4" >4</option>
-                            <option value="5" >5</option>
+                            <option value="1" @if ($data[0]->option=="1") {{'selected="selected"'}} @endif >1</option>
+                            <option value="2" @if ($data[0]->option=="2") {{'selected="selected"'}} @endif >2</option>
+                            <option value="3" @if ($data[0]->option=="3") {{'selected="selected"'}} @endif >3</option>
+                            <option value="4" @if ($data[0]->option=="4") {{'selected="selected"'}} @endif >4</option>
+                            <option value="5" @if ($data[0]->option=="5") {{'selected="selected"'}} @endif >5</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -93,18 +93,23 @@
                             @error('region')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            <select multiple class="form-control @error('region') is-invalid @enderror" name="region" value="{{ old('region') }}">
-                            <option>Shanghai</option>
-                            <option>Xian</option>
-                            <option>Chengdu</option>
+                            <select multiple class="form-control @error('region') is-invalid @enderror" name="region">
+                            <option @if ($data[0]->region=="Shanghai") {{'selected="selected"'}} @endif >Shanghai</option>
+                            <option @if ($data[0]->region=="Xian") {{'selected="selected"'}} @endif >Xian</option>
+                            <option @if ($data[0]->region=="Chengdu") {{'selected="selected"'}} @endif>Chengdu</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control" name="message" value="{{ old('message') }}" rows="3"></textarea>
+                            <textarea class="form-control" name="message" rows="3">{{ $data[0]->message }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Image</label>
+                            @php $image=$data[0]->image @endphp
+                            <div class="col col-lg-4 col-md-4 col-sm-4">
+                                <img src="{{ asset("images/$image") }}" alt="" class="img img-thumbnail img-fluid">
+                            </div>
+                            <br>
                             @error('image')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

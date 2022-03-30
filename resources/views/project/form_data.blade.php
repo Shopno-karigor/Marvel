@@ -69,7 +69,7 @@
                                 <td>{{$row->option}}</td>
                                 <td>{{$row->region}}</td>
                                 <td>{{$row->message}}</td>
-                                <td><img src="{{ asset("images/$row->image") }}" alt="" class="img img-responsive"></td>
+                                <td><img src="{{ asset("images/$row->image") }}" alt="" height="100px"></td>
                                 <td><a href="{{ route('form.update',$row->id) }}" class="btn btn-sm btn-warning">Update</a></td>
                               </tr>
                             @endforeach
